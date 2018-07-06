@@ -2,7 +2,7 @@
 var Enemy = function(x,y) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-    this.x = x || 100;
+    this.x = x || 0;
     this.y = y || 100;
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
@@ -12,9 +12,15 @@ var Enemy = function(x,y) {
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
+    this.speed = Math.random() * (600 - 60) + 60;
+    this.x = this.x + this.speed * dt;
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+    if(this.x > 480){
+        this.x = -(Math.random() * 300);
+        this.y = Math.random() * (230 - 50) + 50;
+    }
 };
 
 // Draw the enemy on the screen, required method for game
@@ -28,7 +34,7 @@ Enemy.prototype.render = function() {
 var Player = function(x,y){
     this.x = x || 200;
     this.y = y || 400;
-    this.sprite = 'images/char-boy.png';
+    this.sprite = 'images/girl.png';
 };
 Player.prototype.render = function(){
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
@@ -52,7 +58,15 @@ Player.prototype.handleInput = function(key){
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-const enemy = new Enemy();
+const allEnemies = [];
+const maxEnemies = 3;
+while (maxEnemies > allEnemies.length) {//min 50, max 230
+        const randomX = -(Math.random() * 300);
+        const randomY =  Math.random() * (230 - 50) + 50;
+        const enemy = new Enemy(0, randomY);
+        allEnemies.push(enemy);
+}
+
 const player = new Player();
 
 
