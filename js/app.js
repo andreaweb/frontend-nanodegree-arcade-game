@@ -18,8 +18,8 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
     if(this.x > 480){
-        this.x = -(Math.random() * 300);
-        this.y = Math.random() * (230 - 50) + 50;
+        this.x = Math.round(-(Math.random() * 300));
+        this.y = Math.round(Math.random() * (230 - 50) + 50);
     }
 };
 
@@ -27,7 +27,17 @@ Enemy.prototype.update = function(dt) {
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
-
+function intersect_safe(a, b)
+{
+    let result = [];
+    for(let i = 0; i < a.length; i++){
+        for(let j = 0; j < b.length; j++){
+            if(a[i] == b[j]){result.push(a[i])}
+        }
+    }
+    return result[0] ? true : false 
+}
+//console.log(intersect_safe(arrA, arrB))
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
@@ -38,6 +48,53 @@ var Player = function(x,y){
 };
 Player.prototype.render = function(){
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+}
+Player.prototype.die = function(enemies){
+    let positionX = []
+    for(let i = 35; positionX.length < 35; i--){
+        positionX.push(this.x + i)
+    }
+    for(let i = 0; positionX.length < 70; i++){
+        positionX.push(this.x - i)
+    }
+    let playerLeftEdge = this.x + 5;
+    let playerRightEdge = this.x + 85;
+    let playerDownEdge = this.y + 40;
+    let playerUpEdge = this.y - 40;
+
+    
+    
+    for(let index = 0; index < enemies.length; index++){//100w 70h enemies
+        let bugRightEdge = enemies[index].x + 50
+        let bugDownEdge = enemies[index].y + 35
+        let bugUpEdge = enemies[index].y - 35
+
+        //playerLeftEdge <= bugRightEdge && bugRightEdge => playerRightEdge //if true, check Y
+        //playerDownEdge <= bugUpEdge && bugUpEdge => playerUpEdge //if true, dead
+        if(playerLeftEdge <= bugRightEdge && bugRightEdge <= playerRightEdge){
+            if(playerUpEdge <= bugUpEdge && bugUpEdge <= playerDownEdge){
+                console.log(" Esquerda J "+playerLeftEdge+"  Direita J "+playerRightEdge);
+                console.log(" Bottom J "+playerDownEdge+"  Topo J "+playerUpEdge);
+                console.log(" Direita I "+bugRightEdge+"  Topo I "+bugUpEdge);
+                console.log("dead")
+                debugger
+            }
+            if(playerUpEdge <= bugDownEdge && bugDownEdge <= playerDownEdge){
+                console.log(" Esquerda J "+playerLeftEdge+" Direita J "+playerRightEdge);
+                console.log("Bottom J "+playerDownEdge+"  Topo J "+playerUpEdge);
+                console.log(" Direita I "+bugRightEdge+"  Bottom I "+bugDownEdge);
+                console.log("dead")
+                debugger
+            }
+        }
+
+
+
+     //   if((enemies[index].x + 35) <= this.x && (this.x+35) >= enemies[index].x   //(70w )
+     //       && (enemies[index].y+35) <= this.y && (this.y+35) >= enemies[index].y ){//80h
+        
+     //   }
+    }
 }
 Player.prototype.handleInput = function(key){
     console.log(key)
@@ -61,8 +118,8 @@ Player.prototype.handleInput = function(key){
 const allEnemies = [];
 const maxEnemies = 3;
 while (maxEnemies > allEnemies.length) {//min 50, max 230
-        const randomX = -(Math.random() * 300);
-        const randomY =  Math.random() * (230 - 50) + 50;
+        const randomX = Math.round(-(Math.random() * 300));
+        const randomY =  Math.round(Math.random() * (230 - 50) + 50);
         const enemy = new Enemy(0, randomY);
         allEnemies.push(enemy);
 }
