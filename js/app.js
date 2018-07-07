@@ -20,6 +20,28 @@ Enemy.prototype.update = function(dt) {
     if(this.x > 480){
         this.x = getRandomX();
         this.y = getRandomY();
+        // if(this !== allEnemies[0]){ //INFINITE LOOP!
+        //     if(this == allEnemies[1]){
+        //         while(safeRoom( //makes sure the X and Y positions don't intersect too much
+        //             [allEnemies[0].x, allEnemies[0].y],
+        //             [this.x, this.y])
+        //         ){
+        //             this.x = getRandomX();
+        //             this.y = getRandomY();
+        //         }
+        //     }
+        //     if(this == allEnemies[2]){
+        //         console.log("second case")
+        //         while(safeRoom( //makes sure the X and Y positions don't intersect too much
+        //             [allEnemies[1].x, allEnemies[1].y],
+        //             [this.x, this.y])
+        //         ){
+        //             this.x = getRandomX();
+        //             this.y = getRandomY();
+        //         }
+        //     }
+            
+        // }
     }
 };
 function getRandomX(){
@@ -33,17 +55,24 @@ function getRandomY(){
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
-function intersect_safe(a, b)
-{
+function safeRoom(a, b){
     let result = [];
     for(let i = 0; i < a.length; i++){
         for(let j = 0; j < b.length; j++){
-            if(a[i] == b[j]){result.push(a[i])}
+            if(
+                (a[i]+90) > b[j] 
+                && 
+                b[j] < a[i]
+            ){
+                result.push(a[i])
+            }//must calculate again
         }
     }
-    return result[0] ? true : false 
+    return result[1] ? true : false 
 }
-//console.log(intersect_safe(arrA, arrB))
+//playerLeftEdge <= bugRightEdge && bugRightEdge <= playerRightEdge
+
+//x and y of every single enemy must differ from every other single enemy
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
@@ -87,13 +116,6 @@ Player.prototype.die = function(enemies){
             }
           
         }
-
-
-
-     //   if((enemies[index].x + 35) <= this.x && (this.x+35) >= enemies[index].x   //(70w )
-     //       && (enemies[index].y+35) <= this.y && (this.y+35) >= enemies[index].y ){//80h
-        
-     //   }
     }
 }
 Player.prototype.handleInput = function(key){
@@ -112,21 +134,35 @@ Player.prototype.handleInput = function(key){
         this.x = this.x + 105;
     }
 }
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
+
 const allEnemies = [];
 const maxEnemies = 3;
+
+//populates the array
 while (maxEnemies > allEnemies.length) {
-        const randomX = getRandomX();
-        const randomY = getRandomY();
+        let randomX = getRandomX(); //sets each enemy to a different X
+        let randomY = getRandomY(); //sets each enemy to a different Y
+        if(allEnemies[0]){
+            while(safeRoom( //makes sure the X and Y positions don't intersect too much
+                [allEnemies[allEnemies.length-1].x, allEnemies[allEnemies.length-1].y],
+                [randomX, randomY])
+            ){
+                randomX = getRandomX();
+                randomY = getRandomY();
+                console.log(randomX, randomY)
+            }
+        }
         const enemy = new Enemy(randomX, randomY);
         allEnemies.push(enemy);
 }
 
+
+
 const player = new Player();
-
-
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
