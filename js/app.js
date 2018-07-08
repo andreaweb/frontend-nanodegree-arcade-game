@@ -80,25 +80,25 @@ var Player = function(x,y){
     this.x = x || 215;
     this.y = y || 425;
     this.sprite = 'images/girl.png';
+    this.win = false;
+    this.celebrate = 'images/Selector.png';
 };
 Player.prototype.render = function(){
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    if(this.win){
+        ctx.drawImage(Resources.get(this.celebrate), this.x-15, this.y-90)
+        ctx.drawImage(Resources.get(this.sprite), this.x, this.y-30)
+        //reset game here
+    }else{
+        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    }
+    
 }
 Player.prototype.die = function(enemies){
-    let positionX = []
-    for(let i = 35; positionX.length < 35; i--){
-        positionX.push(this.x + i)
-    }
-    for(let i = 0; positionX.length < 70; i++){
-        positionX.push(this.x - i)
-    }
     let playerLeftEdge = this.x;
     let playerRightEdge = this.x + 70;
     let playerDownEdge = this.y + 70;
     let playerUpEdge = this.y;
-
-    
-    
+   
     for(let index = 0; index < enemies.length; index++){//100w 70h enemies
         let bugRightEdge = enemies[index].x + 60
       
@@ -121,13 +121,17 @@ Player.prototype.die = function(enemies){
 Player.prototype.handleInput = function(key){
     console.log(key)
     if(key == 'up'){
-        if(this.y <= 0){return false}
+        if(this.y <= 50){
+            this.win = true
+            console.log("condition met");
+            return false
+        }
         this.y = this.y - 75;
     }else if(key == 'down'){
         if(this.y >= 400){return false}
         this.y = this.y + 75;
     }else if(key =='left'){
-        if(this.x <= 0){return false}
+        if(this.x <= 10){return false}
         this.x = this.x - 105;
     }else if(key=='right'){
         if(this.x >= 400){return false}
