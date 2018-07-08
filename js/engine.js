@@ -46,7 +46,12 @@ var Engine = (function(global) {
          * our update function since it may be used for smooth animation.
          */
         update(dt);
-        render();
+        if(!player.dead){
+            render();
+        }else{
+            reset();
+        }
+        
 
         /* Set our lastTime variable which is used to determine the time delta
          * for the next time this function is called.
@@ -163,8 +168,9 @@ var Engine = (function(global) {
      * those sorts of things. It's only called once by the init() method.
      */
     function reset() {
-        // noop
-    }
+        //didn't know how to stop animation here, paused render in main function instead
+        //here I should set player to not dead again, remove a life if there's any available, and start over
+    } 
 
     /* Go ahead and load all of the images we know we're going to need to
      * draw our game level. Then set init as the callback method, so that when

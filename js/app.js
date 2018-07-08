@@ -49,6 +49,7 @@ var Player = function(x,y){
     this.y = y || 425;
     this.sprite = 'images/girl.png';
     this.win = false;
+    this.dead = false;
     this.celebrate = 'images/Selector.png';
 };
 Player.prototype.render = function(){
@@ -79,11 +80,15 @@ Player.prototype.die = function(enemies){
                 console.log(" Esquerda J "+playerLeftEdge+"  Direita J "+playerRightEdge);
                 console.log(" Bottom J "+playerDownEdge+"  Topo J "+playerUpEdge);
                 console.log(" Direita I "+bugRightEdge+"  Topo I "+bugUpEdge);
-                console.log("dead")
-                debugger
+                this.dead = true
+               // debugger
             }
           
         }
+    }
+
+    if(this.dead){
+
     }
 }
 Player.prototype.handleInput = function(key){
