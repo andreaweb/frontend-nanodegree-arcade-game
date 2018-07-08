@@ -19,57 +19,25 @@ Enemy.prototype.update = function(dt) {
     // all computers.
     if(this.x > 480){
         this.x = getRandomX();
-        this.y = getRandomY();
-        // if(this !== allEnemies[0]){ //INFINITE LOOP!
-        //     if(this == allEnemies[1]){
-        //         while(safeRoom( //makes sure the X and Y positions don't intersect too much
-        //             [allEnemies[0].x, allEnemies[0].y],
-        //             [this.x, this.y])
-        //         ){
-        //             this.x = getRandomX();
-        //             this.y = getRandomY();
-        //         }
-        //     }
-        //     if(this == allEnemies[2]){
-        //         console.log("second case")
-        //         while(safeRoom( //makes sure the X and Y positions don't intersect too much
-        //             [allEnemies[1].x, allEnemies[1].y],
-        //             [this.x, this.y])
-        //         ){
-        //             this.x = getRandomX();
-        //             this.y = getRandomY();
-        //         }
-        //     }
-            
-        // }
+        this.y = getYPos(allEnemies.indexOf(this)+1);//numbers required for multiplier are 1, 2 or 3
     }
 };
-function getRandomX(){
-    return Math.round(-(Math.random() * 300));
-}
-function getRandomY(){
-    return Math.round(Math.random() * (300 - 130) + 130);
-}
-
-// Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
-function safeRoom(a, b){
-    let result = [];
-    for(let i = 0; i < a.length; i++){
-        for(let j = 0; j < b.length; j++){
-            if(
-                (a[i]+90) > b[j] 
-                && 
-                b[j] < a[i]
-            ){
-                result.push(a[i])
-            }//must calculate again
-        }
-    }
-    return result[1] ? true : false 
+
+function getRandomX(){
+    return Math.round(-(Math.random() * 300));
 }
+function getYPos(multplier){
+    let result = 100*multplier;
+        result = result + 40/multplier;
+    return result;
+}
+
+// Draw the enemy on the screen, required method for game
+
+
 //playerLeftEdge <= bugRightEdge && bugRightEdge <= playerRightEdge
 
 //x and y of every single enemy must differ from every other single enemy
@@ -123,7 +91,6 @@ Player.prototype.handleInput = function(key){
     if(key == 'up'){
         if(this.y <= 50){
             this.win = true
-            console.log("condition met");
             return false
         }
         this.y = this.y - 75;
@@ -149,18 +116,9 @@ const maxEnemies = 3;
 //populates the array
 while (maxEnemies > allEnemies.length) {
         let randomX = getRandomX(); //sets each enemy to a different X
-        let randomY = getRandomY(); //sets each enemy to a different Y
-        if(allEnemies[0]){
-            while(safeRoom( //makes sure the X and Y positions don't intersect too much
-                [allEnemies[allEnemies.length-1].x, allEnemies[allEnemies.length-1].y],
-                [randomX, randomY])
-            ){
-                randomX = getRandomX();
-                randomY = getRandomY();
-                console.log(randomX, randomY)
-            }
-        }
-        const enemy = new Enemy(randomX, randomY);
+        let yPos = getYPos(allEnemies.length+1); //sets each enemy to a different Y
+       
+        const enemy = new Enemy(randomX, yPos);
         allEnemies.push(enemy);
 }
 
