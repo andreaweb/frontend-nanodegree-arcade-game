@@ -180,6 +180,7 @@ var Engine = (function(global) {
         'images/stone-block.png',
         'images/water-block.png',
         'images/grass-block.png',
+        'images/Heart.png',
         'images/enemy-bug.png',
         'images/Selector.png',
         'images/girl.png'
