@@ -48,9 +48,12 @@ var Player = function(x,y){
     this.x = x || 215;
     this.y = y || 425;
     this.sprite = 'images/girl.png';
+    this.lifeSprite = 'images/Heart.png';
     this.win = false;
     this.dead = false;
     this.celebrate = 'images/Selector.png';
+    this.lives = 3;
+    this.score = 0;  
 };
 Player.prototype.render = function(){
     if(this.win){
@@ -60,7 +63,10 @@ Player.prototype.render = function(){
     }else{
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     }
-    
+    for(let i = 0; i < this.lives; i++){
+        ctx.drawImage(Resources.get(this.lifeSprite), 15 + (i*50), 555)
+    }
+    ctx.fillText('Score: '+this.score, 310, 595);
 }
 Player.prototype.die = function(enemies){
     let playerLeftEdge = this.x;
@@ -88,7 +94,12 @@ Player.prototype.die = function(enemies){
     }
 
     if(this.dead){
-
+//reset game
+        if(this.lives > 1){
+            this.lives = this.lives - 1;
+        }else{
+            this.lives = 0;
+        }
     }
 }
 Player.prototype.handleInput = function(key){
