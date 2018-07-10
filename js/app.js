@@ -56,9 +56,13 @@ var Player = function(x,y){
     this.score = 0;  
 };
 Player.prototype.render = function(){
+    if(this.y <=50){
+        this.win = true
+    }
     if(this.win){
         ctx.drawImage(Resources.get(this.celebrate), this.x-15, this.y-90)
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y-30)
+        
         //reset game here
     }else{
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
@@ -103,10 +107,8 @@ Player.prototype.die = function(enemies){
     }
 }
 Player.prototype.handleInput = function(key){
-    console.log(key)
     if(key == 'up'){
-        if(this.y <= 50){//requerindo dois toques na água... necessário revisar
-            this.win = true
+        if(this.y <= 50){
             return false
         }
         this.y = this.y - 75;

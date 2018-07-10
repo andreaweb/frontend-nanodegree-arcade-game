@@ -47,11 +47,11 @@ var Engine = (function(global) {
          * our update function since it may be used for smooth animation.
          */
         update(dt);
-    //    if(!player.dead){
+        if(player.dead || player.win){
+            pause(dt);
+        }else{
             render();
-     //   }else{
-            reset();
-      //  }
+        }
         
 
         /* Set our lastTime variable which is used to determine the time delta
@@ -171,7 +171,21 @@ var Engine = (function(global) {
     function reset() {
         //didn't know how to stop animation here, paused render in main function instead
         //here I should set player to not dead again, remove a life if there's any available, and start over
+        player.x = 215
+        player.y = 425
+let scoreAdded = false
+addToScore(scoreAdded)
     } 
+
+    function addToScore(scoreAdded){
+        if(!scoreAdded){player.score = player.score + 100; scoreAdded = true }
+    }
+    function pause(){//pause the game to emphasize what's changing
+        setTimeout(reset, 1000)
+        player.win = false
+        player.dead = false
+        
+    }
 
     /* Go ahead and load all of the images we know we're going to need to
      * draw our game level. Then set init as the callback method, so that when
