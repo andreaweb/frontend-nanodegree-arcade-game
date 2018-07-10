@@ -83,10 +83,10 @@ Player.prototype.die = function(enemies){
         //playerDownEdge <= bugUpEdge && bugUpEdge => playerUpEdge //if true, dead
         if(playerLeftEdge <= bugRightEdge && bugRightEdge <= playerRightEdge){
             if(playerUpEdge <= bugUpEdge && bugUpEdge <= playerDownEdge){
-                console.log(" Esquerda J "+playerLeftEdge+"  Direita J "+playerRightEdge);
-                console.log(" Bottom J "+playerDownEdge+"  Topo J "+playerUpEdge);
-                console.log(" Direita I "+bugRightEdge+"  Topo I "+bugUpEdge);
-                this.dead = true
+                // console.log(" Esquerda J "+playerLeftEdge+"  Direita J "+playerRightEdge);
+                // console.log(" Bottom J "+playerDownEdge+"  Topo J "+playerUpEdge);
+                // console.log(" Direita I "+bugRightEdge+"  Topo I "+bugUpEdge);
+                // this.dead = true
                // debugger
             }
           
@@ -105,7 +105,7 @@ Player.prototype.die = function(enemies){
 Player.prototype.handleInput = function(key){
     console.log(key)
     if(key == 'up'){
-        if(this.y <= 50){
+        if(this.y <= 50){//requerindo dois toques na água... necessário revisar
             this.win = true
             return false
         }
@@ -119,6 +119,9 @@ Player.prototype.handleInput = function(key){
     }else if(key=='right'){
         if(this.x >= 400){return false}
         this.x = this.x + 105;
+    }
+    if(this.y >= 125 && this.y <= 275){//every step on a stone adds 10 points to the score
+        this.score = this.score + 10
     }
 }
 

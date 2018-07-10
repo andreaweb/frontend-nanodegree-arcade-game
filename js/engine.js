@@ -47,11 +47,11 @@ var Engine = (function(global) {
          * our update function since it may be used for smooth animation.
          */
         update(dt);
-        if(!player.dead){
+    //    if(!player.dead){
             render();
-        }else{
+     //   }else{
             reset();
-        }
+      //  }
         
 
         /* Set our lastTime variable which is used to determine the time delta
