@@ -49,14 +49,13 @@ var Engine = (function(global) {
         update(dt);
         if(player.win){
             pause();
-            player.win = false;
         }else if(player.dead){
             lose();
         }else{
             render();
+            console.log("me")
         }
         
-
         /* Set our lastTime variable which is used to determine the time delta
          * for the next time this function is called.
          */
@@ -73,9 +72,12 @@ var Engine = (function(global) {
      * game loop.
      */
     function init() {
-        reset();
         lastTime = Date.now();
         main();
+    }
+
+    function whatevis(){
+        console.log("all the time")
     }
 
     /* This function is called by main (our game loop) and itself calls all
@@ -176,16 +178,18 @@ var Engine = (function(global) {
         //here I should set player to not dead again, remove a life if there's any available, and start over
         player.x = 215
         player.y = 425
-        player.score = player.score + 100
+
+      player.score = player.score + 100
     } 
 
-    function addToScore(scoreAdded){
-        if(!scoreAdded){; scoreAdded = true }
-    }
     function pause(){//pause the game to emphasize what's changing
-        setTimeout(celebrate, 200);
+        //
+        setTimeout(celebrate, 400);
         setTimeout(finishCelebrate, 500);
-        // render();
+        
+       // celebrate()
+       // finishCelebrate()
+        
         console.log(player.win)
         player.win = false;
 
@@ -200,11 +204,12 @@ var Engine = (function(global) {
     }
 
     function celebrate(){
-        player.y = 70;
+        player.y = -400;
+
     }
 
     function finishCelebrate(){
-        player.y = 50;
+       reset() 
     }
 
     /* Go ahead and load all of the images we know we're going to need to

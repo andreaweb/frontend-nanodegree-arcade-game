@@ -57,7 +57,7 @@ var Player = function(x,y){
     this.score = 0;  
 };
 Player.prototype.render = function(){
-    if(this.y <=50){
+    if(this.y ==50){
         this.win = true
     }
     if(this.win){
