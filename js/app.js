@@ -52,6 +52,7 @@ var Player = function(x,y){
     this.win = false;
     this.dead = false;
     this.celebrate = 'images/Selector.png';
+    this.celebrateY = -40;
     this.lives = 3;
     this.score = 0;  
 };
@@ -60,7 +61,7 @@ Player.prototype.render = function(){
         this.win = true
     }
     if(this.win){
-        ctx.drawImage(Resources.get(this.celebrate), this.x-15, this.y-90)
+        ctx.drawImage(Resources.get(this.celebrate), this.x-15, this.celebrateY)
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y-30)
         
         //reset game here

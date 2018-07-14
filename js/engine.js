@@ -47,8 +47,11 @@ var Engine = (function(global) {
          * our update function since it may be used for smooth animation.
          */
         update(dt);
-        if(player.dead || player.win){
-            pause(dt);
+        if(player.win){
+            pause();
+            player.win = false;
+        }else if(player.dead){
+            lose();
         }else{
             render();
         }
@@ -173,18 +176,35 @@ var Engine = (function(global) {
         //here I should set player to not dead again, remove a life if there's any available, and start over
         player.x = 215
         player.y = 425
-let scoreAdded = false
-addToScore(scoreAdded)
+        player.score = player.score + 100
     } 
 
     function addToScore(scoreAdded){
-        if(!scoreAdded){player.score = player.score + 100; scoreAdded = true }
+        if(!scoreAdded){; scoreAdded = true }
     }
     function pause(){//pause the game to emphasize what's changing
-        setTimeout(reset, 1000)
-        player.win = false
-        player.dead = false
-        
+        setTimeout(celebrate, 200);
+        setTimeout(finishCelebrate, 500);
+        // render();
+        console.log(player.win)
+        player.win = false;
+
+    
+         
+
+         //setTimeout()
+         //window.location.reload() -> play again? (erases score)
+        // player.win = false
+        // player.dead = false
+         ;
+    }
+
+    function celebrate(){
+        player.y = 70;
+    }
+
+    function finishCelebrate(){
+        player.y = 50;
     }
 
     /* Go ahead and load all of the images we know we're going to need to
