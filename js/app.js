@@ -54,7 +54,7 @@ var Player = function(x,y){
     this.celebrate = 'images/Selector.png';
     this.celebrateY = -40;
     this.lives = 3;
-    this.score = 0;  
+    this.score = 0;
 };
 Player.prototype.render = function(){
     if(this.y ==50){
@@ -88,9 +88,9 @@ Player.prototype.die = function(enemies){
         //playerDownEdge <= bugUpEdge && bugUpEdge => playerUpEdge //if true, dead
         if(playerLeftEdge <= bugRightEdge && bugRightEdge <= playerRightEdge){
             if(playerUpEdge <= bugUpEdge && bugUpEdge <= playerDownEdge){
-                console.log(" Esquerda J "+playerLeftEdge+"  Direita J "+playerRightEdge);
-                console.log(" Bottom J "+playerDownEdge+"  Topo J "+playerUpEdge);
-                console.log(" Direita I "+bugRightEdge+"  Topo I "+bugUpEdge);
+              //  console.log(" Esquerda J "+playerLeftEdge+"  Direita J "+playerRightEdge);
+              //  console.log(" Bottom J "+playerDownEdge+"  Topo J "+playerUpEdge);
+              //  console.log(" Direita I "+bugRightEdge+"  Topo I "+bugUpEdge);
                 this.dead = true
                // debugger
             }
@@ -100,17 +100,35 @@ Player.prototype.die = function(enemies){
 
     if(this.dead){
 //reset game
-        if(this.lives > 1){
+        if(this.lives >= 1){
             this.lives = this.lives - 1;
         }else{
-            this.lives = 0;
+            this.lives = 0
+            playAgain();
         }
     }
+}
+function playAgain(){
+    ctx.textBaseline = 'top';
+    ctx.fillText('You\'re out of lives!', 50, 195);
+    ctx.fillText('Do you want to play again?', 50, 295)
+    ctx.fillText('Your score will be erased.', 50, 395)
+    ctx.fillStyle = '#f50';
+    ctx.fillRect(195, 485, 100, 40);
+    ctx.fillStyle = '#000';
+    ctx.fillText("OK", 215, 485);
+    document.addEventListener('click', reload);
+}
+let reload = function(){
+   window.location.reload()
 }
 Player.prototype.handleInput = function(key){
     if(key == 'up'){
         if(this.y <= 50){
             return false
+        }
+        if(this.y == 125){
+           this.score = this.score + 100 
         }
         this.y = this.y - 75;
     }else if(key == 'down'){

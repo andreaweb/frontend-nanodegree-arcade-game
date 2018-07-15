@@ -49,8 +49,10 @@ var Engine = (function(global) {
         update(dt);
         if(player.win){
             pause();
-        }else if(player.dead){
+        }else if(player.dead && player.lives >= 1){
             lose();
+        }else if(player.lives == 0){
+
         }else{
             render();
         }
@@ -181,19 +183,12 @@ var Engine = (function(global) {
     } 
 
     function pause(){//pause the game to emphasize what's changing
-        //
-        
         setTimeout(celebrate, 200);
         setTimeout(finishCelebrate, 300);
-
-       setTimeout(addToScore,1);
         player.win = false;
-
-    
-         
-
-         //window.location.reload() -> play again? (erases score)
     }
+
+
 
     function lose(){
         reset();
@@ -206,13 +201,8 @@ var Engine = (function(global) {
 
     }
 
-    function addToScore(){
-        player.y = 50;
-        player.score = player.score + 1
-    }
-
     function finishCelebrate(){
-       reset() 
+       reset();
     }
 
     /* Go ahead and load all of the images we know we're going to need to
