@@ -88,10 +88,10 @@ Player.prototype.die = function(enemies){
         //playerDownEdge <= bugUpEdge && bugUpEdge => playerUpEdge //if true, dead
         if(playerLeftEdge <= bugRightEdge && bugRightEdge <= playerRightEdge){
             if(playerUpEdge <= bugUpEdge && bugUpEdge <= playerDownEdge){
-                // console.log(" Esquerda J "+playerLeftEdge+"  Direita J "+playerRightEdge);
-                // console.log(" Bottom J "+playerDownEdge+"  Topo J "+playerUpEdge);
-                // console.log(" Direita I "+bugRightEdge+"  Topo I "+bugUpEdge);
-                // this.dead = true
+                console.log(" Esquerda J "+playerLeftEdge+"  Direita J "+playerRightEdge);
+                console.log(" Bottom J "+playerDownEdge+"  Topo J "+playerUpEdge);
+                console.log(" Direita I "+bugRightEdge+"  Topo I "+bugUpEdge);
+                this.dead = true
                // debugger
             }
           

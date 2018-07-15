@@ -53,7 +53,6 @@ var Engine = (function(global) {
             lose();
         }else{
             render();
-            console.log("me")
         }
         
         /* Set our lastTime variable which is used to determine the time delta
@@ -174,38 +173,42 @@ var Engine = (function(global) {
      * those sorts of things. It's only called once by the init() method.
      */
     function reset() {
-        //didn't know how to stop animation here, paused render in main function instead
-        //here I should set player to not dead again, remove a life if there's any available, and start over
+
         player.x = 215
         player.y = 425
 
-      player.score = player.score + 100
+      
     } 
 
     function pause(){//pause the game to emphasize what's changing
         //
-        setTimeout(celebrate, 400);
-        setTimeout(finishCelebrate, 500);
         
-       // celebrate()
-       // finishCelebrate()
-        
-        console.log(player.win)
+        setTimeout(celebrate, 200);
+        setTimeout(finishCelebrate, 300);
+
+       setTimeout(addToScore,1);
         player.win = false;
 
     
          
 
-         //setTimeout()
          //window.location.reload() -> play again? (erases score)
-        // player.win = false
-        // player.dead = false
-         ;
+    }
+
+    function lose(){
+        reset();
+        render();
+        player.dead = false
     }
 
     function celebrate(){
         player.y = -400;
 
+    }
+
+    function addToScore(){
+        player.y = 50;
+        player.score = player.score + 1
     }
 
     function finishCelebrate(){
