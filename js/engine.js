@@ -52,7 +52,7 @@ var Engine = (function(global) {
         }else if(player.dead && player.lives >= 1){
             lose();
         }else if(player.lives == 0){
-
+            //empty because it just needs to pause render
         }else{
             render();
         }
@@ -77,9 +77,6 @@ var Engine = (function(global) {
         main();
     }
 
-    function whatevis(){
-        console.log("all the time")
-    }
 
     /* This function is called by main (our game loop) and itself calls all
      * of the functions which may need to update entity's data. Based on how
@@ -93,7 +90,6 @@ var Engine = (function(global) {
     function update(dt) {
         updateEntities(dt);
         player.die(allEnemies)
-        // checkCollisions();
     }
 
     /* This is called by the update function and loops through all of the
@@ -107,7 +103,6 @@ var Engine = (function(global) {
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
         });
-     //  player.update();
     }
 
     /* This function initially draws the "game level", it will then call
@@ -174,35 +169,25 @@ var Engine = (function(global) {
      * handle game reset states - maybe a new game menu or a game over screen
      * those sorts of things. It's only called once by the init() method.
      */
-    function reset() {
-
+    function reset() {//just resets player position
         player.x = 215
         player.y = 425
-
-      
     } 
 
-    function pause(){//pause the game to emphasize what's changing
+    function pause(){//"pause" the game to emphasize what's changing
         setTimeout(celebrate, 200);
-        setTimeout(finishCelebrate, 300);
+        setTimeout(reset, 300);
         player.win = false;
     }
 
-
-
-    function lose(){
+    function lose(){//called only if player isn't losing last life
         reset();
         render();
         player.dead = false
     }
 
-    function celebrate(){
+    function celebrate(){//player is momentarily offscreen to make transition less sudden
         player.y = -400;
-
-    }
-
-    function finishCelebrate(){
-       reset();
     }
 
     /* Go ahead and load all of the images we know we're going to need to
