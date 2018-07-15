@@ -5,7 +5,7 @@ Students should use this [rubric](https://review.udacity.com/#!/projects/2696458
 
 For detailed instructions on how to get started, check out this [guide](https://docs.google.com/document/d/1v01aScPjSWCCWQLIpFqvg3-vXLH2e8_SZQKC8jNO0Dc/pub?embedded=true).
 
-Game rules and instructions
+##Game rules and instructions
 
 You start with 3 lives that are displayed at the bottom left of the screen.
 Your score will be displayed at the bottom right of the screen.
@@ -15,6 +15,6 @@ You'll get 100 points everytime you reach the water.
 If an enemy touches you, you'll lose a life.
 If you lose all three lives, a message will appear. Click anywhere on the document to reload the page and try again.
 
-How to run the game
+##How to run the game
 
 You can simply open the html file in your favorite browser.
