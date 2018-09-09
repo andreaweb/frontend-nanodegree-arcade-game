@@ -1,0 +1,19 @@
+{
+  "name": "frontend-nanodegree-arcade-game",
+  "version": "1.0.0",
+  "description": "<h1>Udacity's Advanced Front End Nanodegree - Project #1</h1>\r <h2>Arcade Game (Frogger)</h2>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andreaweb/frontend-nanodegree-arcade-game.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andreaweb/frontend-nanodegree-arcade-game/issues"
+  },
+  "homepage": "https://github.com/andreaweb/frontend-nanodegree-arcade-game#readme"
+}

@@ -1,6 +1,13 @@
 <h1>Udacity's Advanced Front End Nanodegree - Project #1</h1>
 <h2>Arcade Game (Frogger)</h2>
 
+<h3>Check it out!</h3>
+<a href="https://andreaweb.github.io/frontend-nanodegree-arcade-game/">
+	https://andreaweb.github.io/frontend-nanodegree-arcade-game/
+</a>
+<img src="images/print.jpg"
+     alt="Print of Project "/>
+
 <h3>Game rules and instructions</h3>
 
 <ul>
